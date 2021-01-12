@@ -1,29 +1,17 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Add from './components/Add';
-import Users from './components/Users';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Add from "./components/Add";
+import Users from "./components/Users";
+import Header from "./components/Header";
+import SingleUser from "./components/SingleUser";
+import Home from "./components/Home";
 function App() {
   return (
-<Router>
+    <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-
-          </ul>
-        </nav>
+        <Header />
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -34,8 +22,11 @@ function App() {
           <Route path="/users">
             <Users />
           </Route>
+          <Route path="/single-user/:id">
+            <SingleUser />
+          </Route>
           <Route path="/">
-          <Users />
+            <Home />
           </Route>
         </Switch>
       </div>
