@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
+import axios from 'axios';
 
 function Users() {
   const [state, setstate] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:4000/api/users/`)
-      .then((res) => res.json())
+      axios.get('http://localhost:4000/api/users/')
       .then((res) => {
-        console.log(res);
-        setstate(res);
+        console.log(res.data.data);
+        setstate(res.data.data);
       })
       .catch((e) => console.log(e));
   }, []);
@@ -50,7 +50,7 @@ function Users() {
                 </Col>
               </Row>
             </ListGroup.Item>
-          ))}
+          ))} }
         </ListGroup>
       </Col>
       <Col lg={3} md={2} sm={1} xs={1}></Col>

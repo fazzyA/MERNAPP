@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, ListGroup, Row, Col } from "react-bootstrap";
+import axios from 'axios';
 
 function Add() {
-  const AddUser = () => {};
+ const [name,setName]=useState('')
+ const [email,setEmail]=useState('')
+ const [pwd,setPwd]=useState('')
 
+const handleSubmit=()=>{
+  let user = {name, email, pwd}
+      axios.post('http://localhost:4000/api/users/', user)
+      .then(res => console.log(res.data))
+      .catch(err=>console.log(err,'error'));
+
+    window.location = '/users';
+
+}
   return (
-    // <div>
-    //     <form>
-    //     <label htmlFor='name'>Name</label>
 
-    //     <input type='text' name='name'/>
-    //     <label htmlFor='email'>Email</label>
-    //     <input type='text' name='email'/>
-    //     <button type='submit'>Add User</button>
-    //     </form>
-    // </div>
-
-    <form>
-      <Row className="mt-5">
+    <form  onSubmit={handleSubmit}>
+      <Row className="mt-5" >
         <Col lg={3} md={2} sm={1} xs={1}></Col>
         <Col lg={6} md={8} sm={10} xs={10}>
           <ListGroup>
@@ -28,24 +30,24 @@ function Add() {
               <Row>
                 <Col className="col-headers">Name</Col>
                 <Col>
-                  <input type="text" />
+                  <input type="text" name='name' onChange={(e)=>setName(e.target.value)} />
                 </Col>
               </Row>
               <Row>
                 <Col className="col-headers">Email</Col>
                 <Col>
-                  <input type="text" />
+                  <input type="text" name='email' onChange={(e)=>setEmail(e.target.value)} />
                 </Col>
               </Row>
               <Row>
                 <Col className="col-headers">Password</Col>
                 <Col>
-                  <input type="text" />
+                  <input type="password" name='pwd' onChange={(e)=>setPwd(e.target.value)} />
                 </Col>
               </Row>
               <Row className="my-2">
                 <Col className="text-center">
-                  <Button variant="info" size="md" onClick={AddUser}>
+                  <Button variant="info" size="md">
                     Register User
                   </Button>
                 </Col>

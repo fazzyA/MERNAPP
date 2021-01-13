@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'faz.pak@gmail.com',
     },
-    password: {
+    pwd: {
         type: String,
         default: '1111',
     },

@@ -8,7 +8,7 @@ const userRoute  = require('./routes/api/users')
 const app = express();
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 ///connect to db
 dbConnect();
 ///to start app
