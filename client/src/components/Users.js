@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function Users() {
   const [state, setstate] = useState([]);
+  let u=2;
   useEffect(() => {
       axios.get('http://localhost:4000/api/users/')
       .then((res) => {
@@ -39,7 +40,7 @@ function Users() {
                 <Col>{item.name}</Col>
                 <Col>{item.email}</Col>
                 <Col>
-                  <Button
+                  <Button 
                     variant="info"
                     size="sm"
                     as={Link}
