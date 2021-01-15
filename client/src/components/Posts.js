@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
 
-function Users() {
+function Posts() {
   const [state, setstate] = useState([]);
   const [dummy, setdd] = useState([
     {name:'Faiza',email:'faz@gmail.com',id:1},
     {name:'Shehla',email:'shehla@gmail.com',id:2},
   ]);
   useEffect(() => {
-      axios.get('http://localhost:4000/api/users/')
+      axios.get('http://localhost:4000/api/posts/')
       .then((res) => {
         console.log(res.data);
         setstate(res.data.data);
@@ -33,14 +33,14 @@ function Users() {
           {state.map((item, ind) => (
             <ListGroup.Item key={ind} variant="light">
               <Row>
-                <Col>{item.name}</Col>
-                <Col>{item.email}</Col>
+                <Col>{item.title}</Col>
+                <Col>{item.description}</Col>
                 <Col>
                   <Button 
                     variant="info"
                     size="sm"
                     as={Link}
-                    to={"/single-user/" + item._id}
+                    to={"/single-post/" + item._id}
                   >
                     View
                   </Button>
@@ -55,4 +55,4 @@ function Users() {
   );
 }
 
-export default Users;
+export default Posts;

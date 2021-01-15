@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv')
+dotenv.config();
 
 async function dbConnect() {
   try {
-    const mydb = await mongoose.connect('mongodb+srv://faz123:faz123@cluster0.yhego.mongodb.net/PostsApp?retryWrites=true&w=majority', {
+    const mydb = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,

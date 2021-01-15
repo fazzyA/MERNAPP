@@ -15,11 +15,13 @@ router.get("/", async (req, res) => {
   }
 });
 router.post("/", async (req, res) => {
+  console.log(req)
   try{
       const user = await User.create(req.body);
-    res.status(201).json({
+    res.json({
       success: true,
-      dbid: user._id
+      dbid: user._id,
+      status: 201
     });
   } catch (err) {
     console.log(err);

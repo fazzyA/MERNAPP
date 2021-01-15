@@ -55,7 +55,7 @@ input[type="password"] {
 .bg-image {
   width: 100%;
   height: calc(100vh - 56px);
-  background-image: url(./images/bb.jpg);
+  background-image: url(./images/bb1.jpg);
   background-size: cover;
 }
 

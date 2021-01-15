@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        default: 'faiza'
+        required: [true, "Name is required"]
     },
     email: {
         type: String,
-        default: 'faz.pak@gmail.com',
+        required: [true, "Email is required"]
     },
     pwd: {
         type: String,
-        default: '1111',
+        required: [true, "pwd is required"]
     },
     createdAt: {
         type: Date,
