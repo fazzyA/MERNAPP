@@ -2,20 +2,27 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { ListGroup, Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import {useSelector,useDispatch} from 'react-redux'
+import { fetchSinglePost } from "../store/apis";
 
 const SinglePost = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-
+  const post = useSelector(state => {
+   console.log(state.post) 
+    return state.post
+  })
+const dispatch = useDispatch()
   useEffect(() => {
-    fetch("http://localhost:4000/api/posts/" + id)
-      .then((res) => res.json())
-      .then((res) => {
-          console.log(res)
-          setUser(res.data)
-        })
-      .catch((err) => console.log(err));
-  }, [id]);
+    // fetch("http://localhost:4000/api/posts/" + id)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //       console.log(res)
+    //       setUser(res.data)
+    //     })
+    //   .catch((err) => console.log(err));
+    dispatch(fetchSinglePost(id))
+  }, []);
 
   return (
     <Row className="mt-5">
@@ -37,6 +44,10 @@ const SinglePost = () => {
             <Row>
               <Col className="col-headers">Desc</Col>
               <Col>{user?.description}</Col>
+            </Row>
+            <Row>
+              <Col className="col-headers">Image</Col>
+              <Col><img width={100} src={user?.img}/></Col>
             </Row>
           </ListGroup.Item>
         </ListGroup>

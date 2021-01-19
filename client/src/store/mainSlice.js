@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import {fetchSinglePost} from './apis'
 const mySlice = createSlice({
     name:'posts',
-    initialState: {},
+    initialState: {
+        post:{}
+    },
     reducers:{
         addPost(state,action){
             console.log('add')
@@ -17,6 +19,11 @@ const mySlice = createSlice({
 
         },
         
+    },
+    extraReducers:{
+        [fetchSinglePost.fulfilled] : (state, action) =>{
+             state.post=action.payload
+        }
     }
 });
 
