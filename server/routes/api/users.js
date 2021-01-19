@@ -3,17 +3,29 @@ const router = express.Router();
 //const users = require('../../Users');
 const User = require("../../models/users.js");
 
-//Get all users
+//===========================================Get all users
 router.get("/", async (req, res) => {
   try {
 
     const users = await User.find();
     console.log(users);
-    res.status(200).json({ success: true, data: users });
+    
+    res.json({
+      status:200,
+      success:true,
+      data:users
+    })
   } catch (e) {
-    res.status(404).json({ success: false, error: err.message });
+    res.json({
+      status:404,
+      success:false,
+      error:e.message
+    })
+    // res.status(404).json({ success: false, error: err.message });
   }
 });
+//=========================================== Create Single User
+
 router.post("/", async (req, res) => {
   console.log(req)
   try{
@@ -37,7 +49,7 @@ router.post("/", async (req, res) => {
   // }
 });
 
-//Get single user
+//===================================================================Get single user
 router.get('/:id', async (req, res) => {
     try {
     const userOne = await User.findById(req.params.id);

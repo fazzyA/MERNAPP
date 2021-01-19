@@ -12,7 +12,7 @@ function Users() {
   useEffect(() => {
       axios.get('http://localhost:4000/api/users/')
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));

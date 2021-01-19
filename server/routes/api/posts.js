@@ -34,16 +34,31 @@ router.post('/add', async (req, res) => {
 
 
 })
-router.get('/:id', (req, res) => {
-    console.log('single')
+router.get('/:id', async (req, res) => {
+    const post = await Post.findById(req.params.id);
+    res.json({
+        success: true,
+        status: 200, //ok
+        data: post
+    })
 
 })
 router.put('/:id', (req, res) => {
     console.log('update')
 
 })
-router.delete('/:id', (req, res) => {
-    console.log('delete')
+router.delete('/:id', async (req, res) => {
+    try {
+         const post = await Post.findByIdAndDelete(req.params.id);
+    res.json({
+        success: true,
+        status: 200, //ok
+        msg: 'post is deleted successfully'
+    })
+   
+    } catch (error) {
+        console.log(error)
+    }
 
 })
 module.exports = router

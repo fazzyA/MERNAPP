@@ -9,6 +9,7 @@ import SingleUser from "./components/SingleUser";
 import Home from "./components/Home";
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
+import SinglePost from "./components/SinglePost";
 function App() {
   return (
     <Router>
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/single-user/:id">
             <SingleUser />
+          </Route>
+          <Route path="/single-post/:id">
+            <SinglePost />
           </Route>
           <Route path="/">
             <Home />
