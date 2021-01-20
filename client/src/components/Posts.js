@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
+import {useDispatch, useSelector} from 'react-redux'
+import { fetchAllPosts } from "../store/apis";
 
 function Posts() {
   const [state, setstate] = useState([]);
-  const [dummy, setdd] = useState([
-    {name:'Faiza',email:'faz@gmail.com',id:1},
-    {name:'Shehla',email:'shehla@gmail.com',id:2},
-  ]);
+const dispatch = useDispatch()
+// const posts = useSelector(state =>{
+//   console.log(state)
+// })
+// console.log(posts)
   const [msg, setmsg] = useState('')
   const handleDelete = (id)=>{
     console.log(id)
@@ -19,16 +22,18 @@ function Posts() {
     })
     .catch((e) => console.log(e));
 
-
   }
   useEffect(() => {
+console.log('i am in useeffect of posts')
+ //dispatch(fetchAllPosts)
+    
       axios.get('http://localhost:4000/api/posts/')
       .then((res) => {
         console.log(res.data);
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [dispatch]);
   return (
     <Row className="mt-5">
       <Col lg={3} md={2} sm={1} xs={1}></Col>
@@ -56,6 +61,14 @@ function Posts() {
                     to={"/single-post/" + item._id}
                   >
                     View
+                  </Button>&nbsp;
+                  <Button 
+                    variant="info"
+                    size="sm"
+                    as={Link}
+                    to={"/update-post/" + item._id}
+                  >
+                    Edit
                   </Button>&nbsp;
                   <Button 
                     variant="info"

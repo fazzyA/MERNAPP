@@ -8,15 +8,22 @@ import { fetchSinglePost } from "../store/mainSlice";
 const SinglePost = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const [sPost, setsPost] = useState(null);
+  // const sPost = useSelector(state => {
+  //     console.log(state.post)
+  //    return state.post
+
+  // })
   const dispatch = useDispatch()
   useEffect(() => {
-    fetch("http://localhost:4000/api/posts/" + id)
-      .then((res) => res.json())
-      .then((res) => {
-          console.log(res)
-          setUser(res.data)
-        })
-      .catch((err) => console.log(err));
+    // fetch("http://localhost:4000/api/posts/" + id)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //       console.log(res)
+    //       setUser(res.data)
+    //     })
+    //   .catch((err) => console.log(err));
+    dispatch(fetchSinglePost(id))
   }, []);
 
   return (
@@ -34,12 +41,12 @@ const SinglePost = () => {
             </Row>
             <Row>
               <Col className="col-headers">Title</Col>
-              <Col>{user?.title}</Col>
+              <Col>{user?.title}{sPost.title}</Col>
             </Row>
             <Row>
               <Col className="col-headers">Desc</Col>
               {/* <Col>{user?.description}</Col> */}
-              <Col>{user?.description}</Col>
+              <Col>{user?.description}{sPost.description}</Col>
             </Row>
             <Row>
               <Col className="col-headers">Image</Col>

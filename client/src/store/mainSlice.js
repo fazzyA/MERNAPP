@@ -1,9 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
-import {fetchSinglePost} from './apis'
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+//import {fetchSinglePost,fetchAllPosts} from './apis'
+import axios from 'axios';
+
+export const fetchSinglePost = createAsyncThunk(
+    'singlePost',
+    async (data, thunkAPI)=>{
+            const res = await axios.get("http://localhost:4000/api/posts/" + data)
+        return res.data
+  
+    }
+);
+
+
 const mySlice = createSlice({
     name:'posts',
     initialState: {
-        post:{}
     },
     reducers:{
         addPost(state,action){
@@ -11,7 +22,7 @@ const mySlice = createSlice({
 
         },
         viewPost(state,action){
-            console.log('view')
+            state.post= action.payload
 
         },
         deletePost(state,action){
@@ -22,9 +33,12 @@ const mySlice = createSlice({
     },
     extraReducers:{
         [fetchSinglePost.fulfilled] : (state, action) =>{
-             state.post=action.payload
-        }
-    }
+            state.post=action.payload
+       },
+//        [fetchAllPosts.fulfilled] : (state, action) =>{
+//         state.posts=action.payload
+//    }
+}
 });
 
 export const { addPost, viewPost,deletePost} = mySlice.actions;

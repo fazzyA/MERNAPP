@@ -43,8 +43,16 @@ router.get('/:id', async (req, res) => {
     })
 
 })
-router.put('/:id', (req, res) => {
+router.put('update/:id', (req, res) => {
     console.log('update')
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body);
+    res.json({
+        success: true,
+        status: 200, //ok
+        data: post,
+        msg: 'updated successfully'
+    })
+
 
 })
 router.delete('/:id', async (req, res) => {

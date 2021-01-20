@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Add from "./components/Add";
@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
 import SinglePost from "./components/SinglePost";
+import UpdatePost from "./components/UpdatePost";
 function App() {
   return (
     <Router>
@@ -36,6 +37,9 @@ function App() {
           </Route>
           <Route path="/single-post/:id">
             <SinglePost />
+          </Route>
+          <Route path="/update-post/:id">
+            <UpdatePost />
           </Route>
           <Route path="/">
             <Home />
