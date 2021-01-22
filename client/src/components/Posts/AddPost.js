@@ -2,15 +2,23 @@ import axios from "axios";
 import React, { useState } from "react";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import FileBase64 from 'react-file-base64';
+import { useHistory } from 'react-router-dom'
+
 function AddPost() {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [img, setimg] = useState('')
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault()
     let newPost = { title, description, img};
     axios.post('http://localhost:4000/api/posts/add', newPost)
-      .then(res => console.log(res))
+      .then(res => {
+                console.log(res)
+                history.push('/posts');
+
+      })
       .catch(err => console.log(err, 'error'));
   }
 

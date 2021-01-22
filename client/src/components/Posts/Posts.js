@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux'
-import { fetchAllPosts } from "../store/apis";
+import { fetchAllPosts } from "../../store/apis";
+import DeleteModal from "../subComponents/DeleteModal";
+import { useHistory } from 'react-router-dom'
 
 function Posts() {
   const [state, setstate] = useState([]);
+  const history = useHistory();
+
 const dispatch = useDispatch()
 // const posts = useSelector(state =>{
 //   console.log(state)
@@ -19,6 +23,8 @@ const dispatch = useDispatch()
     .then((res) => {
       console.log(res.data);
       setmsg(`${id} is deleted successfully`);
+       history.push('/posts')
+
     })
     .catch((e) => console.log(e));
 
@@ -70,13 +76,15 @@ console.log('i am in useeffect of posts')
                   >
                     Edit
                   </Button>&nbsp;
-                  <Button 
+                  {/* <Button 
                     variant="info"
                     size="sm" 
                     onClick={()=>handleDelete(item._id)}
                   >
                     Delete
-                  </Button>
+                  </Button> */}
+                  <DeleteModal handleDelete={handleDelete} id={item._id}/>
+
                 </Col>
               </Row>
             </ListGroup.Item>

@@ -2,15 +2,15 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Add from "./components/Add";
-import Users from "./components/Users";
+import Add from "./components/Users/Add";
+import Users from "./components/Users/Users";
 import Header from "./components/Header";
-import SingleUser from "./components/SingleUser";
+import SingleUser from "./components/Users/SingleUser";
 import Home from "./components/Home";
-import AddPost from "./components/AddPost";
-import Posts from "./components/Posts";
-import SinglePost from "./components/SinglePost";
-import UpdatePost from "./components/UpdatePost";
+import AddPost from "./components/Posts/AddPost";
+import Posts from "./components/Posts/Posts";
+import SinglePost from "./components/Posts/SinglePost";
+import UpdatePost from "./components/Posts/UpdatePost";
 function App() {
   return (
     <Router>

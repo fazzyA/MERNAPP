@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { Button, ListGroup, Row, Col } from "react-bootstrap";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom'
 
 function Add() {
  const [name,setName]=useState('')
  const [email,setEmail]=useState('')
  const [pwd,setPwd]=useState('')
+ const history = useHistory();
 
 const handleSubmit=(e)=>{
   e.preventDefault();
   let user = {name, email, pwd}
   console.log(user)
       axios.post('http://localhost:4000/api/users/', user)
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data)
+        history.push('/users');
+      })
       .catch(err=>console.log(err,'error'));
 
-    window.location = '/users';
 
 }
   return (
