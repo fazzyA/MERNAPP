@@ -17,13 +17,14 @@ const dispatch = useDispatch()
 // })
 // console.log(posts)
   const [msg, setmsg] = useState('')
+  const [reload, setreload] = useState(false)
   const handleDelete = (id)=>{
     console.log(id)
     axios.delete('http://localhost:4000/api/posts/'+id)
     .then((res) => {
       console.log(res.data);
       setmsg(`${id} is deleted successfully`);
-       history.push('/posts')
+      setreload(!reload)
 
     })
     .catch((e) => console.log(e));
@@ -39,7 +40,8 @@ console.log('i am in useeffect of posts')
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));
-  }, [dispatch]);
+      setmsg('')
+  }, [reload]);
   return (
     <Row className="mt-5">
       <Col lg={3} md={2} sm={1} xs={1}></Col>
