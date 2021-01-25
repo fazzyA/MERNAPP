@@ -2,25 +2,41 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import axios from 'axios';
+import {useDispatch} from 'react-redux'
+import DeleteModal from "../subComponents/DeleteModal";
+import { useHistory } from 'react-router-dom'
 
 function Users() {
   const [state, setstate] = useState([]);
-  const [dummy, setdd] = useState([
-    {name:'Faiza',email:'faz@gmail.com',id:1},
-    {name:'Shehla',email:'shehla@gmail.com',id:2},
-  ]);
+  const history = useHistory();
+  const dispatch = useDispatch()
+  const [msg, setmsg] = useState('')
+  const handleDelete = (id)=>{
+    console.log(id)
+    axios.delete('http://localhost:4000/api/users/'+id)
+    .then((res) => {
+      console.log(res.data);
+      setmsg(`${id} is deleted successfully`);
+       history.push('/users')
+
+    })
+    .catch((e) => console.log(e));
+
+  }
   useEffect(() => {
+    console.log('i am in useeffect of users')
       axios.get('http://localhost:4000/api/users/')
       .then((res) => {
-        // console.log(res);
+        console.log(res.data);
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [dispatch]);
   return (
     <Row className="mt-5">
       <Col lg={3} md={2} sm={1} xs={1}></Col>
       <Col lg={6} md={8} sm={10} xs={10}>
+        <p>{msg}</p>
         <ListGroup>
           <ListGroup.Item variant="primary">
             <Row className="col-headers">
@@ -43,7 +59,17 @@ function Users() {
                     to={"/single-user/" + item._id}
                   >
                     View
-                  </Button>
+                  </Button>&nbsp;
+                  <Button 
+                    variant="info"
+                    size="sm"
+                    as={Link}
+                    to={"/update-user/" + item._id}
+                  >
+                    Edit
+                  </Button>&nbsp;
+                  <DeleteModal handleDelete={handleDelete} id={item._id}/>
+
                 </Col>
               </Row>
             </ListGroup.Item>

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-//const users = require('../../Users');
+
 const User = require("../../models/users.js");
 
 //===========================================Get all users
@@ -53,28 +53,43 @@ router.post("/", async (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 
-  // const newUser = new User(usr);
-  // try {
-  //   await newUser.save();
-  //   res.status(201).json(usr);
-  // } catch (e) {
-  //   res.status(400).json({ message: "error in saving users" });
-  // }
 });
 
 //===================================================================Get single user
 router.get('/:id', async (req, res) => {
   try {
-    const userOne = await User.findById(req.params.id);
-    res.status(200).json({ success: true, data: userOne });
+    const user = await User.findById(req.params.id);
+    res.status(200).json({ success: true, data: user });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
 
-  // let id = parseInt(req.params.id)
-  // console.log(id)
-  // let result = users.filter((item) => item.id == id)
-  // res.json(result[0])
 });
+router.put('update/:id', async (req, res) => {
+  console.log('update')
+  const user = await User.findByIdAndUpdate(req.params.id, req.body);
+  res.json({
+      success: true,
+      status: 200, //ok
+      data: user,
+      msg: 'updated successfully'
+  })
+
+
+})
+router.delete('/:id', async (req, res) => {
+  try {
+       const user = await User.findByIdAndDelete(req.params.id);
+  res.json({
+      success: true,
+      status: 200, //ok
+      msg: 'post is deleted successfully'
+  })
+ 
+  } catch (error) {
+      console.log(error)
+  }
+
+})
 
 module.exports = router;

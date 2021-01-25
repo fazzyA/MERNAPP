@@ -4,7 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 
 const Header = () => {
   return (
-    <Navbar bg="primary" variant="dark" className="">
+    <Navbar bg="success" variant="dark" className="">
       <Navbar.Brand as={Link} to="/">
         MERN App
       </Navbar.Brand>

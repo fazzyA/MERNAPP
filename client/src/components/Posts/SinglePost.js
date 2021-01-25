@@ -38,7 +38,6 @@ const SinglePost = () => {
             </Row>
             <Row>
               <Col className="col-headers">Desc</Col>
-              {/* <Col>{user?.description}</Col> */}
               <Col>{user?.description}</Col>
             </Row>
             <Row>
