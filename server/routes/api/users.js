@@ -1,7 +1,8 @@
 const express = require("express");
+const User = require("../../models/users.js");
 const router = express.Router();
 //const users = require('../../Users');
-const User = require("../../models/users.js");
+
 
 //===========================================Get all users
 router.get("/", async (req, res) => {
@@ -26,8 +27,8 @@ router.get("/", async (req, res) => {
 });
 //=========================================== Create Single User
 
-router.post("/", async (req, res) => {
-  console.log(req)
+router.post("/add", async (req, res) => {
+  //console.log("....",req)
   try {
     User.findOne({ email: req.body.email })
       .then(user => {
@@ -75,6 +76,30 @@ router.get('/:id', async (req, res) => {
   // console.log(id)
   // let result = users.filter((item) => item.id == id)
   // res.json(result[0])
+  router.get('/:id', async (req, res) => {
+  
+    res.json({
+        success: true,
+        status: 200, //ok
+        data: users
+    })
+
+})
+  router.delete('/:id', async (req, res) => {
+    try {
+         const user = await User.findByIdAndDelete(req.params.id);
+         console.log(req.params.id)
+    res.json({
+        success: true,
+        status: 200, //ok
+        msg: 'users is deleted successfully'
+    })
+   
+    } catch (error) {
+        console.log(".....",error)
+    }
+
+  })
 });
 
 module.exports = router;
