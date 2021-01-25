@@ -101,5 +101,24 @@ router.get('/:id', async (req, res) => {
 
   })
 });
+router.post('/login', async (req, res) => {
+  let {pwd,email} = req.body;
+  console.log(req.body)
 
-module.exports = router;
+  try {
+    User.findOne({email,pwd})
+    .then(user=>{
+      console.log(user)
+      res.json({
+        status:200,
+        data:user,
+        msg:"login success"
+      })
+    })
+    .catch(err=>console.log('.....',err))
+  } catch (error) {
+    console.log(error)
+  }
+}
+)
+module.exports = router
