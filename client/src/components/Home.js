@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="bg-image">
       <h1 className="title-text pl-5">
-        <i> MERN</i> App :::.
+        <i> MERN</i> App ***
       </h1>
     </div>
   );
