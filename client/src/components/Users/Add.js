@@ -13,7 +13,7 @@ const handleSubmit=(e)=>{
   e.preventDefault();
   let user = {name, email, pwd}
   console.log(user)
-      axios.post('http://localhost:4000/api/users/', user)
+      axios.post('http://localhost:4000/api/users/add', user)
       .then(res => {
         console.log(res.data)
         history.push('/users');
