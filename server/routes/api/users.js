@@ -137,9 +137,11 @@ router.post('/login', async (req, res) => {
     User.findOne({ email })
       .then(user => {
         console.log(user)
-        bcrypt.compare(pwd, user.pwd).then((isMatch) => {
+        bcrypt.compare(pwd, user.pwd)
+        .then((isMatch) => {
           if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
           else {
+          //  req.session.name =user.name
             res.json({
               status: 200,
               data: user,
