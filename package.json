@@ -11,6 +11,7 @@
   "author": "faiza",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/icons": "^4.11.2",
     "concurrently": "^5.3.0"
   }
 }
