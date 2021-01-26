@@ -2,12 +2,7 @@ const express = require("express");
 const User = require("../../models/users.js");
 const router = express.Router();
 
-
-const User = require("../../models/users.js");
-
 //const users = require('../../Users');
-
-
 
 //===========================================Get all users
 router.get("/", async (req, res) => {
@@ -127,7 +122,7 @@ router.delete('/:id', async (req, res) => {
     }
 
   })
-});
+// });
 router.post('/login', async (req, res) => {
   let {pwd,email} = req.body;
   console.log(req.body)
