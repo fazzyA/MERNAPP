@@ -19,6 +19,7 @@ function Home() {
   })
 
   return (
+
     <div>
       <Grid container spacing={3}>
         {state.map((item, index) => (
@@ -30,6 +31,7 @@ function Home() {
 
 
       </Grid>
+  
     </div>
   );
 
