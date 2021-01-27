@@ -141,7 +141,9 @@ router.post('/login', async (req, res) => {
         .then((isMatch) => {
           if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
           else {
-          //  req.session.name =user.name
+            let onLineUser = {id:user._id, name:user.name, email:user.email}
+            req.session.user =onLineUser
+            console.log(req.session.user)
             res.json({
               status: 200,
               data: user,
@@ -158,4 +160,29 @@ router.post('/login', async (req, res) => {
   }
 }//post
 )
+
+///=========logout
+router.post('/logout',(req,res)=>{
+req.session.destroy()
+.then(sess=>{
+  res.clearCookie("session-id");
+  res.json({
+    status: 200,
+    msg: "logout success"
+  })
+
+})
+.catch(err=>{
+  res.json({
+    status: 400,
+    msg: "logout failed"
+  })
+
+})
+})
+router.post('/authcheck',(req,res)=>{
+  console.log('authcheck')
+})
+
+
 module.exports = router

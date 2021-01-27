@@ -14,6 +14,9 @@ async function dbConnect() {
     //       console.log('mongo is connected');
     //     });
     console.log('mongo db is connected')
+
+  
+
     mongoose.connection.on('connected', function () {//connected
       console.log('Mongoose is connected');
     });
