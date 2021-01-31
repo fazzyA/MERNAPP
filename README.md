@@ -6,3 +6,4 @@ https://blog.bitsrc.io/build-a-login-auth-app-with-mern-stack-part-1-c405048e366
 https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088  
 https://shawndsilva.com/blog/web-development/MERN-Sessions-Authentication-App-Part-1-Nodejs-and-Express-Backend.html
   https://auth0.com/docs/quickstart/spa/react
+The Complete Guide to React User Authentication with Auth0
