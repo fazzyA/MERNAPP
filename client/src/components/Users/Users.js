@@ -38,7 +38,7 @@ function Users() {
     console.log('i am in useeffect of users')
       axios.get('http://localhost:4000/api/users/')
       .then((res) => {
-        console.log(res.data);
+       // console.log(res.data);
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));

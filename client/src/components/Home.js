@@ -10,13 +10,13 @@ function Home() {
   useEffect(() => {
     axios.get('http://localhost:4000/api/posts/')
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setstate(res.data.data);
       })
       .catch((e) => console.log(e));
     setmsg('')
 
-  })
+  },[])
 
   return (
 

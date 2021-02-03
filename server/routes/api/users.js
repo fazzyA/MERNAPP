@@ -130,7 +130,7 @@ router.delete('/:id', async (req, res) => {
 })
 // });
 router.post('/login', async (req, res) => {
-  let { pwd, email } = req.body;
+  const { pwd, email } = req.body;
   console.log(req.body)
 
   try {
@@ -143,10 +143,10 @@ router.post('/login', async (req, res) => {
           else {
             let onLineUser = {id:user._id, name:user.name, email:user.email}
             req.session.user =onLineUser
-            console.log(req.session.user)
+            console.log("online user====",req.session.user)
             res.json({
               status: 200,
-              data: user,
+              data: onLineUser,
               msg: "login success"
             })
 
@@ -162,26 +162,35 @@ router.post('/login', async (req, res) => {
 )
 
 ///=========logout
-router.post('/logout',(req,res)=>{
-req.session.destroy()
-.then(sess=>{
+router.delete('/logout',(req,res)=>{
+req.session.destroy((err)=>{
+if(err){
+  res.json({
+    status: 400,
+    msg: "logout failed"
+  })
+
+} else{
+
   res.clearCookie("session-id");
   res.json({
     status: 200,
     msg: "logout success"
   })
 
-})
-.catch(err=>{
-  res.json({
-    status: 400,
-    msg: "logout failed"
-  })
-
+}
 })
 })
 router.post('/authcheck',(req,res)=>{
   console.log('authcheck')
+  /// if user loggedIn
+  const sessUser = req.session.user;
+  console.log('...........',sessUser)
+  if (sessUser) {
+     res.json({ msg: " Authenticated Successfully", user:sessUser });
+  } else {
+     res.json({status:401, msg: "Unauthorized" });
+  }
 })
 
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
@@ -16,14 +16,20 @@ const Header = () => {
           Register
         </Nav.Link>
         <Nav.Link as={Link} to="/posts">
-         Posts
+          Posts
         </Nav.Link>
         <Nav.Link as={Link} to="/addpost">
-         New Post
+          New Post
         </Nav.Link>
         <Nav.Link as={Link} to="/login">
-         Login
-        </Nav.Link>
+          Login
+          </Nav.Link>
+        <Nav.Link as={Link} to="/logout">
+          Logout
+            </Nav.Link>
+
+
+
       </Nav>
     </Navbar>
   );

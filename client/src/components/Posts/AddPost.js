@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ListGroup, Row, Col, Button } from "react-bootstrap";
 import FileBase64 from 'react-file-base64';
 import { useHistory } from 'react-router-dom'
@@ -9,6 +9,16 @@ function AddPost() {
   const [description, setdescription] = useState('')
   const [img, setimg] = useState('')
   const history = useHistory();
+
+  useEffect(()=>{
+    axios.post('http://localhost:4000/api/users/authcheck')
+      .then(res => {
+          console.log(res);
+          // console.log('login successful')
+          // history.push('/')
+      })
+      .catch(err=>console.log(err,'error'));
+      },[])
 
   const handleSubmit = (e) => {
     e.preventDefault()
