@@ -14,6 +14,7 @@ function Posts() {
 const dispatch = useDispatch()
   const [msg, setmsg] = useState('')
   const [cols, setcols] = useState([
+    // { title: 'id', field: '_id' },
     { title: 'title', field: 'title' },
     { title: 'description', field: 'description' }
   ])
@@ -41,7 +42,7 @@ console.log('i am in useeffect of posts')
       setmsg('')
   }, [reload]);
   return (
-    <Editable rows={state} cols={cols} />
+    <Editable rows={state} cols={cols} type='posts' />
   );
 }
 

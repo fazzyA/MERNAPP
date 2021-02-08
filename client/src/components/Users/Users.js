@@ -50,7 +50,7 @@ function Users() {
   }, []);
 
   return (
-    <Editable rows={state} cols={cols}/>
+    <Editable rows={state} cols={cols} type='users' />
   );
 }
 export default Users;

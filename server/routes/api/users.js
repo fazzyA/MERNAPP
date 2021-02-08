@@ -73,7 +73,7 @@ router.get('/:id', async (req, res) => {
 
 
 });
-router.put('update/:id', async (req, res) => {
+router.post('update/:id', async (req, res) => {
   console.log('update')
   const user = await User.findByIdAndUpdate(req.params.id, req.body);
   res.json({

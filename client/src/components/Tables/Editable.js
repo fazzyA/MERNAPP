@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import MaterialTable from 'material-table'
 import { forwardRef } from 'react';
- 
+import axios from 'axios';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
@@ -37,13 +37,34 @@ const tableIcons = {
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
   };
-function Editable({rows, cols}) {
+function Editable({rows, cols, type}) {
     const { useState } = React;
   
     const [columns, setColumns] = useState(cols);
   
     const [data, setData] = useState([]);
 
+    const handleUpdate=async (id,newData)=>{
+      console.log(id);
+      var myUpdatedData;
+      if(type=='posts') {
+
+        let {title,description} = newData
+         myUpdatedData = {title,description}
+
+      } else{
+        let {name,email} = newData
+         myUpdatedData = {name,email}
+
+
+      }
+      const usr= await axios.put(`http://localhost:4000/api/${type}/update/${id}`,myUpdatedData)
+      console.log(usr);
+    }
+    const handleDelete = async (id)=>{
+      const usr= await axios.delete(`http://localhost:4000/api/${type}/${id}`)
+      console.log(usr)
+    }
     useEffect(()=>{
         setData(rows)
         setColumns(cols)
@@ -72,6 +93,7 @@ function Editable({rows, cols}) {
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
                 setData([...dataUpdate]);
+                handleUpdate(dataUpdate[index]._id, newData);
   
                 resolve();
               }, 1000)
@@ -83,7 +105,8 @@ function Editable({rows, cols}) {
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
                 setData([...dataDelete]);
-                
+                // handleDelete(dataDelete[index]._id);
+
                 resolve()
               }, 1000)
             }),

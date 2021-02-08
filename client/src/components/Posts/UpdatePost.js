@@ -16,7 +16,7 @@ const handleSubmit = (e)=>{
     e.preventDefault()
 let newPost = {title, description ,img}
 console.log(newPost)
-axios.put('http://localhost:4000/api/posts/update/'+id, newPost)
+axios.post('http://localhost:4000/api/posts/update/'+id, newPost)
 .then(res => console.log(res))
 .catch(err => console.log(err, 'error'));
 
@@ -29,6 +29,7 @@ axios.put('http://localhost:4000/api/posts/update/'+id, newPost)
           setUser(res.data)
           settitle(res.data.title)
           setdescription(res.data.description)
+          setimg(res.data.img)
         })
       .catch((err) => console.log(err));
   }, []);
