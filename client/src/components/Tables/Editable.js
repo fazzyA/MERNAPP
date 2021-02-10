@@ -17,7 +17,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
- 
+import AddDialog from '../Users/AddDialog'; 
+
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -70,22 +71,39 @@ function Editable({rows, cols, type}) {
         setColumns(cols)
     },[rows])
 
+
+    // for add-user dialog box
+    const [open, setOpen] = useState(false);
+    
+    const handleClickOpen = () => {
+      setOpen(true);
+    };  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+
     // console.log(users);
     // console.log(data);
     return (
+      <div>
+      <AddDialog mainOpen={open} mainSetOpen={setOpen} mainHandleClose={handleClose} />
+
       <MaterialTable
         title="Editable Preview"
         icons={tableIcons}
         columns={columns}
         data={data}
+        actions={[
+          {
+            icon: tableIcons.Add,
+            tooltip: 'Add User',
+            isFreeAction: true,
+            onClick: handleClickOpen,
+          },           
+        ]}
         editable={{
-           onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                setData([...data, newData]);
-                resolve();
-              }, 1000)
-            }),
+           
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -105,13 +123,14 @@ function Editable({rows, cols, type}) {
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
                 setData([...dataDelete]);
-                // handleDelete(dataDelete[index]._id);
+                handleDelete(dataDelete[index]._id);
 
                 resolve()
               }, 1000)
             }),
         }}
       />
+      </div>
     )
   }
   export default Editable
