@@ -21,12 +21,11 @@ function Signin() {
         // console.log(user)
             axios.post('http://localhost:4000/api/users/login', user)
             .then(res => {
-                console.log(res.data);
+                console.log(res.data.data);
                 console.log('login successful')
-                history.push('/')
-                // setUnique(res.data.unique);
-                // if(unique)
-                //     history.push('/users');
+                localStorage.setItem('userData', JSON.stringify(res.data.data))
+
+              //  history.push('/')
             })
             .catch(err=>console.log(err,'error'));
     }
@@ -58,7 +57,7 @@ function Signin() {
                             <LockIcon className='icon' />
                         </Grid>
                         <Grid item item sm={10} md={6}>
-                            <TextField className='input-textfield' label="Password"
+                            <TextField className='input-textfield' label="Password" type='password'  
                             onChange={(e)=>setPwd(e.target.value)} />
                         </Grid>
                     </Grid>

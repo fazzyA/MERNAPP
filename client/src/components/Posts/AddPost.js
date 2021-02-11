@@ -9,16 +9,16 @@ function AddPost() {
   const [description, setdescription] = useState('')
   const [img, setimg] = useState('')
   const history = useHistory();
+const [token, settoken] = useState('')
+useEffect(()=>{
+const checkOnlineUser = JSON.parse(localStorage.getItem('userData'))
+// let { id, name, email, token} = checkOnlineUser;
 
-  useEffect(()=>{
-    axios.post('http://localhost:4000/api/users/authcheck')
-      .then(res => {
-          console.log(res);
-          // console.log('login successful')
-          // history.push('/')
-      })
-      .catch(err=>console.log(err,'error'));
-      },[])
+if(checkOnlineUser == null){
+  history.push('/login');
+}
+
+},[])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -26,7 +26,7 @@ function AddPost() {
     axios.post('http://localhost:4000/api/posts/add', newPost)
       .then(res => {
                 console.log(res)
-                history.push('/posts');
+                //history.push('/posts');
 
       })
       .catch(err => console.log(err, 'error'));

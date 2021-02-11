@@ -3,6 +3,9 @@ const User = require("../../models/users.js");
 const router = express.Router();
 var bcrypt = require('bcryptjs');
 //const users = require('../../Users');
+var jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config();
 
 //===========================================Get all users
 router.get("/", async (req, res) => {
@@ -141,14 +144,17 @@ router.post('/login', async (req, res) => {
         .then((isMatch) => {
           if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
           else {
-            let onLineUser = {id:user._id, name:user.name, email:user.email}
-            req.session.user =onLineUser
-            console.log("online user====",req.session.user)
-            res.json({
+            jwt.sign({id: user._id, email:user.email}, process.env.JWT_SECRET, function(err, token) {
+              let onLineUser = {id:user._id, name:user.name, email:user.email,token}
+              if(err) return res.json({status:400, msg:"no token generated"})
+              console.log(token);
+              res.json({
               status: 200,
               data: onLineUser,
-              msg: "login success"
+              msg: "login success",
+              token
             })
+ });
 
           }//else
         }) //bcypt then
@@ -181,17 +187,18 @@ if(err){
 }
 })
 })
-router.post('/authcheck',(req,res)=>{
-  console.log('authcheck')
-  /// if user loggedIn
-  const sessUser = req.session.user;
-  console.log('...........',sessUser)
-  if (sessUser) {
-     res.json({ msg: " Authenticated Successfully", user:sessUser });
-  } else {
-     res.json({status:401, msg: "Unauthorized" });
-  }
-})
+// router.post('/authcheck',(req,res)=>{
+//   console.log('authcheck')
+//   /// if user loggedIn
+//   const sessUser = req.session.user;
+//   console.log('...........',sessUser)
+//   if (sessUser) {
+//      res.json({ msg: " Authenticated Successfully", user:sessUser });
+//   } else {
+//      res.json({status:401, msg: "Unauthorized" });
+//   }
+// })
+
 
 
 module.exports = router
