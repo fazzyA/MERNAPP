@@ -1,10 +1,11 @@
-const express = require('express')
+const express = require('express');
+const auth = require('../../middleware/auth');
 const Post = require('../../models/posts')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
     // get posts from posts
-    const posts = await Post.find();
+    const posts = await Post.find().sort({date:-1});
     res.json({
         success: true,
         status: 200, //ok
@@ -12,9 +13,10 @@ router.get('/', async (req, res) => {
     })
 
 })
-router.post('/add', async (req, res) => {
+router.post('/add',auth, async (req, res) => {
     try {
         const post = await Post.create(req.body)
+        console.log(req.userData)
         res.json({
             success: true,
             status: 201,

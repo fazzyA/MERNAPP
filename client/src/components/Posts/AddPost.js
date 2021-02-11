@@ -8,26 +8,36 @@ function AddPost() {
   const [title, settitle] = useState('')
   const [description, setdescription] = useState('')
   const [img, setimg] = useState('')
+  const [user, setuser] = useState('')
   const history = useHistory();
 const [token, settoken] = useState('')
 useEffect(()=>{
 const checkOnlineUser = JSON.parse(localStorage.getItem('userData'))
-// let { id, name, email, token} = checkOnlineUser;
 
 if(checkOnlineUser == null){
   history.push('/login');
-}
+}else {
+   let { id, name, email, token} = checkOnlineUser;
+   settoken(token)
+   if(!token)  history.push('/login');
+setuser(name)
 
+}
 },[])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    let newPost = { title, description, img};
-    axios.post('http://localhost:4000/api/posts/add', newPost)
+    let newPost = { title, description, img,user};
+    axios.post('http://localhost:4000/api/posts/add',newPost ,
+      {
+        
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token    }
+})
       .then(res => {
                 console.log(res)
                 //history.push('/posts');
-
       })
       .catch(err => console.log(err, 'error'));
   }
