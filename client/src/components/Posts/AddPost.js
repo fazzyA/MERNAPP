@@ -17,7 +17,7 @@ const checkOnlineUser = JSON.parse(localStorage.getItem('userData'))
 if(checkOnlineUser == null){
   history.push('/login');
 }else {
-   let { id, name, email, token} = checkOnlineUser;
+   let { id, name, email, token, isAdmin} = checkOnlineUser;
    settoken(token)
    if(!token)  history.push('/login');
 setuser(name)
