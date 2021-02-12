@@ -145,7 +145,7 @@ router.post('/login', async (req, res) => {
           if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
           else {
             jwt.sign({id: user._id, email:user.email}, process.env.JWT_SECRET, function(err, token) {
-              let onLineUser = {id:user._id, name:user.name, email:user.email,token}
+              let onLineUser = {id:user._id, name:user.name, email:user.email,token, isAdmin:user.isAdmin}
               if(err) return res.json({status:400, msg:"no token generated"})
               console.log(token);
               res.json({

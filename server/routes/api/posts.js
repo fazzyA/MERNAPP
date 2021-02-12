@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     // get posts from posts
-    const posts = await Post.find().sort({date:-1});
+    const posts = await Post.find().sort({createdAt:-1});
     res.json({
         success: true,
         status: 200, //ok

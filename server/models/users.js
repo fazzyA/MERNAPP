@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "pwd is required"]
     },
+    isAdmin:{
+        type: Number,
+        default: 0
+    },
     createdAt: {
         type: Date,
         default: new Date()

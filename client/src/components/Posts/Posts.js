@@ -5,7 +5,7 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux'
 import DeleteModal from "../subComponents/DeleteModal";
 import { useHistory } from 'react-router-dom'
-import Editable from "../Tables/Editable";
+import PostTable from "../Tables/PostTable";
 
 function Posts() {
   const [state, setstate] = useState([]);
@@ -13,12 +13,8 @@ function Posts() {
 
 const dispatch = useDispatch()
   const [msg, setmsg] = useState('')
-  const [cols, setcols] = useState([
-    // { title: 'id', field: '_id' },
-    { title: 'title', field: 'title' },
-    { title: 'description', field: 'description' }
-  ])
   const [reload, setreload] = useState(false)
+
   const handleDelete = (id)=>{
     console.log(id)
     axios.delete('http://localhost:4000/api/posts/'+id)
@@ -42,7 +38,8 @@ console.log('i am in useeffect of posts')
       setmsg('')
   }, [reload]);
   return (
-    <Editable rows={state} cols={cols} type='posts' />
+    <PostTable posts={state} />
+    
   );
 }
 
